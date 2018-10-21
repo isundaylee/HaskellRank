@@ -47,12 +47,14 @@ def generate_makefile(problem, num_cases, out_path):
         f.write("\n".join(lines))
 
 def download_problem(problem, num_cases, out_path):
-    if not os.path.exists(out_path):
+    exists = os.path.exists(out_path)
+    
+    if not exists:
         os.mkdir(out_path)
         
     generate_makefile(problem, num_cases, os.path.join(out_path, "makefile"))
     
-    if os.path.exists(out_path):
+    if exists:
         print('{} already exists. Skipping template creation...'.format(out_path))
         return
     

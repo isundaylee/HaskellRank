@@ -21,3 +21,9 @@ picking-numbers-tests:
 	@echo 'Building and testing problem: picking-numbers'
 	@echo
 	@make -C picking-numbers tests
+
+.PHONY: apple-and-orange-tests
+apple-and-orange-tests:
+	@echo 'Building and testing problem: apple-and-orange'
+	@echo
+	@make -C apple-and-orange tests
