@@ -12,6 +12,7 @@ case = int(sys.argv[2])
 
 expected = Path(os.path.join(HACKERRANK_ROOT, problem, "test{}.ans".format(case))).read_text()
 actual = Path(os.path.join(HACKERRANK_ROOT, problem, "test{}.out".format(case))).read_text()
+err = Path(os.path.join(HACKERRANK_ROOT, problem, "test{}.err".format(case))).read_text()
 
 def indent(text, spaces):
     return '\n'.join(map(lambda line: (" " * spaces) + line, text.split("\n")))
@@ -28,4 +29,8 @@ else:
     print('  Actual: ')
     print()
     print(indent(actual, 4))
+    print()
+    print('  Debug: ')
+    print()
+    print(indent(err, 4))
     exit(1)

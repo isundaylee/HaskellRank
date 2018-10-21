@@ -25,8 +25,8 @@ def generate_makefile(problem, num_cases, out_path):
             "",
             ".PHONY: test{}".format(i),
             "test{}: solution test{}.in test{}.ans".format(i, i, i),
-	        "\t@ ./solution < test{}.in > test{}.out".format(i, i),
-            "\t../checker/checker.py {} {}".format(problem, i),
+	        "\t@ ./solution <test{}.in >test{}.out 2>test{}.err".format(i, i, i),
+            "\t@../checker/checker.py {} {}".format(problem, i),
         ])
         
     lines.append("")
@@ -40,21 +40,21 @@ def generate_makefile(problem, num_cases, out_path):
     lines.append("\trm -f solution.o")
     lines.append("\trm -f solution.hi")
     lines.append("\trm -f *.out")
+    lines.append("\trm -f *.err")
     lines.append("")
         
     with open(out_path, 'w') as f:
         f.write("\n".join(lines))
 
 def download_problem(problem, num_cases, out_path):
-    if os.path.exists(out_path):
-        print('{} already exists. Skipping...'.format(out_path))
-        return
+    if not os.path.exists(out_path):
+        os.mkdir(out_path)
         
-    # content = urlopen("https://www.hackerrank.com/challenges/{}/problem".format(problem)).read().decode('utf-8')
-    # doc = pq(content)
-    
-    os.mkdir(out_path)
     generate_makefile(problem, num_cases, os.path.join(out_path, "makefile"))
+    
+    if os.path.exists(out_path):
+        print('{} already exists. Skipping template creation...'.format(out_path))
+        return
     
     for i in range(num_cases):
         with open(os.path.join(out_path, "test{}.in".format(i)), 'w') as f:

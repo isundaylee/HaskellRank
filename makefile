@@ -15,3 +15,9 @@ divisible-sum-pairs-tests:
 	@echo 'Building and testing problem: divisible-sum-pairs'
 	@echo
 	@make -C divisible-sum-pairs tests
+
+.PHONY: picking-numbers-tests
+picking-numbers-tests:
+	@echo 'Building and testing problem: picking-numbers'
+	@echo
+	@make -C picking-numbers tests
